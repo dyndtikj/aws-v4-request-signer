@@ -36,18 +36,18 @@ func main() {
 	}
 	signer := v4.NewSigner(awsSess.Config.Credentials)
 
-	if err = DebugSign(signer); err != nil {
+	if err = DebugSign(signer, URL); err != nil {
 		log.Fatal("failed sign:", err)
 	}
 }
 
-func DebugSign(signer *v4.Signer) error {
-	req, err := http.NewRequest(http.MethodGet, URL, nil)
+func DebugSign(v4Signer *v4.Signer, url string) error {
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return fmt.Errorf("failed create request, %w", err)
 	}
 
-	_, err = signer.Sign(req, nil, "s3", S3Region, time.Now())
+	_, err = v4Signer.Sign(req, nil, "s3", S3Region, time.Now())
 	if err != nil {
 		return fmt.Errorf("error signing request: %w", err)
 	}

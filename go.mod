@@ -1,4 +1,4 @@
-module UniversalAwsV4Signer
+module  aws-v4-request-signer
 
 go 1.20
 
